@@ -1,38 +1,4 @@
-<h2>Show User</h2>
 
-<ul>
+<p>User created successfully</p>
+<span><%= link "Redirect to login page", to: page_path(@conn, :index) %></span>
 
-  <li>
-    <strong>Firstname:</strong>
-    <%= @user.firstname %>
-  </li>
-
-  <li>
-    <strong>Lastname:</strong>
-    <%= @user.lastname %>
-  </li>
-
-  <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
-
-  <li>
-    <strong>Password:</strong>
-    <%= @user.password %>
-  </li>
-
-  <li>
-    <strong>Password confirmation:</strong>
-    <%= @user.password_confirmation %>
-  </li>
-
-  <li>
-    <strong>Password hash:</strong>
-    <%= @user.password_hash %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
-<span><%= link "Back", to: user_path(@conn, :index) %></span>
