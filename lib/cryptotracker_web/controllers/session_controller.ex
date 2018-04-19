@@ -10,7 +10,7 @@ defmodule CryptotrackerWeb.SessionController do
         conn
         |> put_session(:user_id, user.id)
         |> put_flash(:info, "Welcome back #{user.firstname}")
-        |> redirect(to: page_path(conn, :home))
+        |> redirect(to: page_path(conn, :select))
       else
         conn
         |> put_flash(:error, "Can't create session")

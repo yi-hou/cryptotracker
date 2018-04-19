@@ -10,6 +10,11 @@ defmodule CryptotrackerWeb.PageController do
     render conn, "home.html"
   end
 
+
+  def select(conn, _params) do
+    render conn, "selectcrypto.html"
+  end
+
   def fetchAPI(conn, _params) do
     resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,DASH,LTC&tsyms=BTC,USD,EUR")
     IO.inspect(resp)
@@ -22,17 +27,22 @@ defmodule CryptotrackerWeb.PageController do
   
   end
 
-  def fetchpricefromAPI() do
-    resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BCH,LTC&tsyms=USD&e=Coinbase&extraParams=your_app_name")
-  
-    data = Poison.decode!(resp.body)
-  
-    data = data["DISPLAY"]
-    IO.puts("DISPLAY")
+
+  def renderPrices(conn, _params ) do
+
+  def fetchpricefromAPI(coinnames) do
+    string = ""
+    IO.puts("coins")
+    string = Enum.join(coinnames, ",")
+    IO.inspect(string)
+ 
+      resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=#{string}&tsyms=USD&e=Coinbase&extraParams=your_app_name")
+      data = Poison.decode!(resp.body)
+      data = data["DISPLAY"]
+      IO.inspect(data)
    
-    IO.puts("hi");
-   
-    data
+     
+
     end 
    
     

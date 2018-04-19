@@ -23,9 +23,13 @@ import socket from "./socket"
 import run_demo from "./prices";
 
 function start() {
-  let root = document.getElementById('root');
-  if (root) {
-    run_demo(root);
+  let selection = document.getElementById('selection');
+  if (selection) {
+    let channel = socket.channel("room:lobby", {});
+    channel.join()
+           .receive("ok", resp => { console.log("Joined successfully", resp) })
+           .receive("error", resp => { console.log("Unable to join", resp) });
+    run_demo(selection, channel);
   }
   else {
       console.log("no root");
