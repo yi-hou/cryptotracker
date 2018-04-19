@@ -9,9 +9,9 @@ defmodule CryptotrackerWeb.PageController do
 
 
   def home(conn, _params) do
-    IO.puts("Sending email")
-    send_alert_email()
-    IO.puts("Email sent")
+    #IO.puts("Sending email")
+    #send_alert_email()
+    #IO.puts("Email sent")
     render conn, "home.html"
   end
 
@@ -31,10 +31,7 @@ defmodule CryptotrackerWeb.PageController do
     IO.inspect(data |> Map.get("BTC") |> Map.get("USD")  |> Map.put("NAME", "baz"))
   
   end
-
-
-
-
+  
   def fetchpricefromAPI(coinnames) do
     string = ""
     IO.puts("coins")
@@ -45,15 +42,7 @@ defmodule CryptotrackerWeb.PageController do
       data = Poison.decode!(resp.body)
       data = data["DISPLAY"]
       IO.inspect(data)
-   
-     
-
     end 
-   
-    
-    
-  
-
 
   def fetchallpriceData() do
     resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,XRP,BCH,LTC&tsyms=USD&e=Coinbase&extraParams=your_app_name")
