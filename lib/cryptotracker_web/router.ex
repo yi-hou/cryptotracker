@@ -20,6 +20,10 @@ defmodule CryptotrackerWeb.Router do
     assign(conn, :current_user, user)
   end
 
+  if Mix.env == :dev do
+    forward "/send_emails", Bamboo.EmailPreviewPlug    
+  end
+
   scope "/", CryptotrackerWeb do
     pipe_through :browser # Use the default browser stack
 
