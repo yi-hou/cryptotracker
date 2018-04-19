@@ -28,7 +28,7 @@ defmodule CryptotrackerWeb.PageController do
   end
 
 
-  def renderPrices(conn, _params ) do
+
 
   def fetchpricefromAPI(coinnames) do
     string = ""
