@@ -20,7 +20,7 @@ defmodule Cryptotracker.Mixfile do
   def application do
     [
       mod: {Cryptotracker.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :bamboo_smtp]
     ]
   end
 
@@ -44,7 +44,11 @@ defmodule Cryptotracker.Mixfile do
       {:httpoison, "~> 0.13"}, 
       {:poison, "~> 3.1"}, 
       {:comeonin, "~> 4.0"},
-      {:argon2_elixir, "~> 1.2"},
+      {:bamboo, "~> 0.8"},
+      {:bamboo_smtp, "~> 1.4.0"},
+      {:hackney, "~> 1.6"},
+      {:plug, "~> 1.0"},
+      {:argon2_elixir, "~> 1.2"}
     ]
   end
 

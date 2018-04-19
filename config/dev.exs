@@ -30,6 +30,9 @@ config :cryptotracker, CryptotrackerWeb.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
+config :logger, :console, format: "[$level] $message\n"
+
+
 # Watch static and templates for browser reloading.
 config :cryptotracker, CryptotrackerWeb.Endpoint,
   live_reload: [
@@ -51,8 +54,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :cryptotracker, Cryptotracker.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "cryptotracker",
-  password: "cryptotracker",
+  username: "crypto",
+  password: "edc666.",
   database: "cryptotracker_dev",
   hostname: "localhost",
   pool_size: 10

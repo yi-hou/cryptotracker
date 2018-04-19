@@ -7,8 +7,8 @@
 
  <% data = CryptotrackerWeb.PageController.fetchpricefromAPI() %>
 
- <div class="d-none d-lg-block" width="1100px">
-        <table class="table table-responsive">
+ <div class="d-table d-lg-block" width="1100px">
+        <table class="table table-responsive" id="table">
             <thead>
                 <tr>
                    <th class="text-right">Name</th>>
@@ -18,35 +18,32 @@
                     <th class="text-right">24h Volume</th>
                     <th class="text-right">Market Cap</th>
                     <th class="text-right">Supply</th>
-                    
                 </tr>
             </thead>
             <tbody>
-  
+
     <%= for {k,v} <- data do %>
- 
+
     <% IO.puts("value is ")%>
-<% IO.inspect(v) %>
-<% IO.puts("key is ") %>
-<% IO.inspect(k) %>
+      <% IO.inspect(v) %>
+        <% IO.puts("key is ") %>
+         <% IO.inspect(k) %>
 
           <tr class="clickable clickable-row" data-href="/coin/btc">
-                       
+
                         <td class="text-right"><%= k %></td>
                         <td class="text-right"><%= v |> Map.get("USD") |> Map.get("PRICE") %></td>
                         <td class="text-right"><%= v |> Map.get("USD") |> Map.get("HIGH24HOUR") %></td>
-                         <td class="text-right"><%= v |> Map.get("USD") |> Map.get("CHANGEPCT24HOUR") %></td>
+                        <td class="text-right"><%= v |> Map.get("USD") |> Map.get("CHANGEPCT24HOUR") %></td>
                         <td class="text-right"><%= v |> Map.get("USD") |> Map.get("TOTALVOLUME24H") %></td>
-                        <td class="text-right"><%= v |> Map.get("USD") |> Map.get("MKTCAP") %></td> 
+                        <td class="text-right"><%= v |> Map.get("USD") |> Map.get("MKTCAP") %></td>
                         <td class="text-right"><%= v |> Map.get("USD") |> Map.get("SUPPLY") %></td>
-                      
+          </tr>
 
-                                        
-                    
-                           
-                       
-                      
-                       </tr>
+         <% end  %>
+      </tbody>
+   </table>
+</div>
 
                        <% end  %>
                       

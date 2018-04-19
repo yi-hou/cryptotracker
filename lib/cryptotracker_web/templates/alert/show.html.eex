@@ -1,0 +1,26 @@
+<h2>Show Alert</h2>
+
+<ul>
+  <li>
+    <strong>User:</strong>
+    <%= @alert.user.email %>
+  </li>
+  <li>
+    <strong>Symbol:</strong>
+    <%= @alert.symbol %>
+  </li>
+
+  <li>
+    <strong>Price:</strong>
+    <%= @alert.price %>
+  </li>
+
+  <li>
+    <strong>Lowalert:</strong>
+    <%= @alert.lowAlert %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: alert_path(@conn, :edit, @alert) %></span>
+<span><%= link "Back", to: alert_path(@conn, :index) %></span>

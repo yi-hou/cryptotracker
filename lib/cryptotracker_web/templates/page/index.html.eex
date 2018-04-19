@@ -1,32 +1,68 @@
-<div id="root">
-<div class="row">
-  <div class="col">
 
-    <h1>Log In</h1>
-    <%= form_tag("/session", method: :post) do %>
-      <div class="form-group">
-        Email
-        <input type="email" name="email" placeholder="user@example.com" >
+<div>
+  <div className="navigation-bar" id = "navigation-bar">
+    <ul className="navigation-list" id = "navigation-list" >
+      <li className="navigation-list-item" id = "navigation-list-item">
+      <div class="popup" onclick="showAbout()">About us
+        <span class="aboutUs" id="aboutUs">
+        <p>CryptoCurrency Price tracker brings all the real time
+        pricing data information in a single platform.
+        It will make users easy to retrieve, store, analyse,
+        visualize and monitor the cryptocurrency data
+        from different cryptos.
+        </p>
+        <p>
+        You can use it to track buy price, sell price, spot price,
+        size and use these data to predict price movements
+        and understand volatility.
+        </p>
+        </span>
       </div>
-      <div class="form-group">
-        Password
-        <input type="password" name="password">
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary">Log in</button>
-        <%= link "Register", to: user_path(@conn, :new) %>
-      </div>
-    <% end %>
+      </li>
+    </ul>
 
   </div>
+
+  <div class="main-container">
+     <h3 id="register-text">Please
+       <%= link "Register", to: user_path(@conn, :new) %>
+     </h3>
+     <div id="login-or">
+       <hr id="hr-or" />
+         <span id="span-or">or</span>
+     </div>
+
+    <div class="row">
+      <div class="col">
+       <%= form_tag("/session", method: :post) do %>
+         <div class="form-group">
+           <label id="form-control">Email</label>
+           <input type="email" id="form-control" name="email" placeholder="user@example.com" >
+         </div>
+         <div class="form-group">
+           <label id="form-control">Password</label>
+           <input type="password" id="form-control" name="password">
+         </div>
+         <div class="form-group">
+           <button class="btn btn-primary">Log in</button>
+         </div>
+
+
+         <div class="form-group">
+         <form id="searchForm" method="post" action = "<%= page_path(@conn, :fetchAPI) %>" >
+          <input type="hidden" className ="btn btn-outline-secondary" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
+          <input type="submit" className ="btn btn-outline-secondary" name ="submit" value = "Get API data" />
+         </form>
+         </div>
+      <% end %>
+     </div>
+   </div>
+</div>
 </div>
 
-</div>
-
-<div id ="title"></div>
-<div id="form-Area">
-<form id="searchForm" method="post" action = "<%= page_path(@conn, :fetchAPI) %>" >
-<input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
-<input type="submit" name ="submit" value = "Get API data" />
-</form>
-</div>
+<script>
+function showAbout() {
+  var popup = document.getElementById("aboutUs");
+  popup.classList.toggle("showAbout");
+}
+</script>
