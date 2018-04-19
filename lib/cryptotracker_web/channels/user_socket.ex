@@ -2,7 +2,7 @@ defmodule CryptotrackerWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", CryptotrackerWeb.RoomChannel
+  channel "room:*", CryptotrackerWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

@@ -1,4 +1,4 @@
-
+<div id="root">
 <div class="row">
   <div class="col">
 
@@ -21,7 +21,7 @@
   </div>
 </div>
 
-
+</div>
 
 <div id ="title"></div>
 <div id="form-Area">

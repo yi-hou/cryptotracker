@@ -18,6 +18,18 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-// import socket from "./socket"
+import socket from "./socket"
 
+import run_demo from "./prices";
 
+function start() {
+  let root = document.getElementById('root');
+  if (root) {
+    run_demo(root);
+  }
+  else {
+      console.log("no root");
+  }
+}
+
+$(start);

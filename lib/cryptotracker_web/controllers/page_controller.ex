@@ -17,6 +17,8 @@ defmodule CryptotrackerWeb.PageController do
     IO.inspect(data)
     IO.inspect(data["DASH"]["BTC"])
     render conn, "home.html"
+    IO.inspect(data |> Map.get("BTC") |> Map.get("USD") )
+    IO.inspect(data |> Map.get("BTC") |> Map.get("USD")  |> Map.put("NAME", "baz"))
   
   end
 
@@ -27,12 +29,9 @@ defmodule CryptotrackerWeb.PageController do
   
     data = data["DISPLAY"]
     IO.puts("DISPLAY")
-    IO.inspect(data) 
-  
-    IO.inspect(data["BTC"]["USD"])
+   
     IO.puts("hi");
-    IO.inspect(data |> Map.get("BTC") |> Map.get("USD") )
-    IO.inspect(data |> Map.get("BTC") |> Map.get("USD")  |> Map.put("NAME", "baz"))
+   
     data
     end 
    
