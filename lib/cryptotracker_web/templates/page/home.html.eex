@@ -1,5 +1,10 @@
+<div id="root">
+<p>app js</p> 
+</div>
 
- 
+
+
+
  <% data = CryptotrackerWeb.PageController.fetchpricefromAPI() %>
 
  <div class="d-table d-lg-block" width="1100px">
@@ -39,3 +44,11 @@
       </tbody>
    </table>
 </div>
+
+                       <% end  %>
+                      
+                </tbody>
+                </table>  
+               
+               
+                

@@ -30,6 +30,7 @@ defmodule CryptotrackerWeb.Router do
     get "/", PageController, :index
     post "/fetchAPI", PageController, :fetchAPI
     get "/home", PageController, :home
+    get "/selectcrypto", PageController, :select
     resources "/users", UserController
     resources "/alerts", AlertController
     get "/alert", PageController, :alerts
