@@ -30,6 +30,9 @@ config :cryptotracker, CryptotrackerWeb.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
+config :logger, :console, format: "[$level] $message\n"
+
+
 # Watch static and templates for browser reloading.
 config :cryptotracker, CryptotrackerWeb.Endpoint,
   live_reload: [

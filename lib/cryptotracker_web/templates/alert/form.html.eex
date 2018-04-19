@@ -1,0 +1,33 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+  
+  <div class="form-group disabled">
+    <%= hidden_input f, :user_id, value: @current_user.id, class: "form-hidden" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :symbol, class: "control-label" %>
+    <%= text_input f, :symbol, class: "form-control" %>
+    <%= error_tag f, :symbol %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :price, class: "control-label" %>
+    <%= number_input f, :price, step: "any", class: "form-control" %>
+    <%= error_tag f, :price %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :lowAlert, class: "control-label" %>
+    <%= checkbox f, :lowAlert, class: "checkbox" %>
+    <%= error_tag f, :lowAlert %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
