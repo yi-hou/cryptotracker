@@ -80,7 +80,8 @@ li a:hover {
 }
 
 .main-container-home {
-  margin-top: 180px;
+  visibility: visible;
+  margin-top: 100px;
   margin-bottom: 10%;
   width: 90%;
   text-align: center;
@@ -193,4 +194,13 @@ li a:hover {
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
+}
+
+#table{
+  display: table-cell;
+}
+
+.cryptos{
+  background-image: image(crypto.jpeg);
+  height: 40px;
 }
