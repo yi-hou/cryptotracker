@@ -27,6 +27,11 @@ defmodule CryptotrackerWeb.PageController do
     IO.inspect(data)
     IO.inspect(data["DASH"]["BTC"])
     data
-    
+  end
+
+  def alerts(conn, _params) do
+    alerts = Cryptotracker.Notification.list_alerts()
+    changeset = Cryptotracker.Notification.change_alert(%Cryptotracker.Notification.Alert{})
+    render conn, "alerts.html", alerts: alerts, changeset: changeset
   end
 end
