@@ -1,31 +1,5 @@
-<div id = "navigation-bar">
-  <ul id = "navigation-list" >
-    <li id = "navigation-list-item">
-       <div class="popup" onclick="showAbout()">About us
-         <span class="aboutUs" id="aboutUs">
-         <p>CryptoCurrency Price tracker brings all the real time
-         pricing data information in a single platform.
-         It will make users easy to retrieve, store, analyse,
-         visualize and monitor the cryptocurrency data
-         from different cryptos.
-         </p>
-         <p>
-         You can use it to track buy price, sell price, spot price,
-         size and use these data to predict price movements
-         and understand volatility.
-         </p>
-         </span>
-       </div>
-    </li>
-</div>
+
 <div id="main-container">
    <p>User created successfully!</p>
    <span><%= link "Redirect to login page", to: page_path(@conn, :index) %></span>
 </div>
-
-<script>
-function showAbout() {
-  var popup = document.getElementById("aboutUs");
-  popup.classList.toggle("showAbout");
-}
-</script>

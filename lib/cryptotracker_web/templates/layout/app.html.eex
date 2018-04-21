@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg" id="navbar">
   <a class="navbar-brand" href="selectcrypto">Cryptotracker</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -29,6 +29,23 @@
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="/users/new">Register</a>
+        </li>
+        <li class="nav-item active">
+          <div class="nav-link popup" onclick="showAbout()">About us
+           <span class="aboutUs" id="aboutUs">
+            <p>CryptoCurrency Price tracker brings all the real time
+               pricing data information in a single platform.
+               It will make users easy to retrieve, store, analyse,
+               visualize and monitor the cryptocurrency data
+               from different cryptos.
+          </p>
+          <p>
+             You can use it to track buy price, sell price, spot price,
+             size and use these data to predict price movements
+             and understand volatility.
+          </p>
+          </span>
+        </div>
         </li>
       <% else %>
         <li class="nav-item active">
@@ -50,7 +67,7 @@
           </p>
           <% end %>
       </div>
-      </div> 
+      </div>
      <!-- <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p> -->
 
@@ -60,5 +77,11 @@
 
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script>
+    function showAbout() {
+      var popup = document.getElementById("aboutUs");
+      popup.classList.toggle("showAbout");
+    }
+    </script>
   </body>
 </html>

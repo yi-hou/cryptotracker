@@ -38,11 +38,16 @@ class Demo extends React.Component {
         this.changeColor();
         return (
             <div className="container">
+              <div className="images">
+              <img src={'https://steemitimages.com/DQmUHN62vCWCZGFdt72jxNzeaaeuMoygfG3Ev9LusyhjA4d/growth-price-dash.jpg'} alt="bg1" className="img-responsive" id="img1" />
+
+              </div>
+                <div className="price_container">
                 <div className="checkbox-container">
                     <div className="card">
                         <div className="card-header">
                             Click to toggle view
-                    </div>
+                        </div>
                         <div className="card-body">
                             {this.state.coinSymbols.map((symbol, index) => {
                                 return <button
@@ -50,12 +55,12 @@ class Demo extends React.Component {
                                     className="btn btn-primary btn-coin-toggle"
                                     data-toggle="button"
                                     aria-pressed="false"
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     onClick={() => this.handleToggle(index)}>
                                     {symbol}
                                 </button>
                             })}
-                            <select name="input" label="Change Currency" defaultValue="USD">
+                            <select className="dropdown" name="input" label="Change Currency" defaultValue="USD">
                                 <option value="USD" onClick={() => this.currencyChanged("USD")}> USD</option>
                                 <option value="EUR" onClick={() => this.currencyChanged("EUR")}> EUR </option>
                             </select>
@@ -85,7 +90,7 @@ class Demo extends React.Component {
                                         <td>
                                             <label id="labelSymbol">{this.state.coinSymbols[index]}</label></td>
                                         <td><label id="labelName">{this.state.coinName[index]}</label></td>
-                                        <td><label onLoad='changeColor()' id="labelPrice">{this.state.coinPRICE[index]}</label></td>
+                                        <td><label onLoad={this.changeColor()} id="labelPrice">{this.state.coinPRICE[index]}</label></td>
                                         <td><label id="labelMktcap">{this.state.coinMKTCAP[index]}</label></td>
                                         <td><label id="labelSupply">{this.state.coinSUPPLY[index]}</label></td>
                                         <td><label id="labelVol">{this.state.coinTOTALVOLUME24H[index]}</label></td>
@@ -97,6 +102,7 @@ class Demo extends React.Component {
                         </tbody>
                     </table>
                 </div>
+              </div>
             </div>
         )
     }

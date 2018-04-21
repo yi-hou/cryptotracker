@@ -1,30 +1,9 @@
 
 <div class="container-index">
-  <nav class="navbar navbar-default " id = "navigation-bar">
-    <div class = "container-fluid">
-      <ul class="nav navbar-nav">
-        <li id="navigation-list-item">
-          <div class="popup" onclick="showAbout()">About us
-           <span class="aboutUs" id="aboutUs">
-          <p>CryptoCurrency Price tracker brings all the real time
-          pricing data information in a single platform.
-          It will make users easy to retrieve, store, analyse,
-          visualize and monitor the cryptocurrency data
-          from different cryptos.
-          </p>
-          <p>
-          You can use it to track buy price, sell price, spot price,
-          size and use these data to predict price movements
-          and understand volatility.
-          </p>
-          </span>
-        </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
+
   <div class="image"> <img src="https://i0.wp.com/usethebitcoin.com/wp-content/uploads/2018/03/financial-market.jpg?fit=757%2C468&ssl=1" alt="image"  style="width:800px;height:400px;"></div>
   <div class="main-container">
+
     <div class="row">
       <div class="col">
        <%= form_tag("/session", method: :post) do %>
@@ -37,23 +16,12 @@
            <input type="password" id="form-control" name="password">
          </div>
          <div class="form-group">
-           <button class="btn-group btn-primary btn-group-sm">Log in</button>
+           <button class="btn btn-group-sm">Log in</button>
          </div>
-         <div class="form-group">
-         <form id="searchForm" method="post" action = "<%= page_path(@conn, :fetchAPI) %>" >
-          <input type="hidden" className ="btn btn-outline-secondary" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
-        </form>
+
          </div>
       <% end %>
      </div>
    </div>
 </div>
 </div>
-
-
-<script>
-function showAbout() {
-  var popup = document.getElementById("aboutUs");
-  popup.classList.toggle("showAbout");
-}
-</script>
