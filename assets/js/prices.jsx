@@ -55,7 +55,7 @@ class Demo extends React.Component {
                                     className="btn btn-primary btn-coin-toggle"
                                     data-toggle="button"
                                     aria-pressed="false"
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     onClick={() => this.handleToggle(index)}>
                                     {symbol}
                                 </button>
@@ -90,7 +90,7 @@ class Demo extends React.Component {
                                         <td>
                                             <label id="labelSymbol">{this.state.coinSymbols[index]}</label></td>
                                         <td><label id="labelName">{this.state.coinName[index]}</label></td>
-                                        <td><label onLoad='changeColor()' id="labelPrice">{this.state.coinPRICE[index]}</label></td>
+                                        <td><label onLoad={this.changeColor()} id="labelPrice">{this.state.coinPRICE[index]}</label></td>
                                         <td><label id="labelMktcap">{this.state.coinMKTCAP[index]}</label></td>
                                         <td><label id="labelSupply">{this.state.coinSUPPLY[index]}</label></td>
                                         <td><label id="labelVol">{this.state.coinTOTALVOLUME24H[index]}</label></td>

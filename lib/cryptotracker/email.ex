@@ -4,13 +4,12 @@
 defmodule Cryptotracker.Email do
     import Bamboo.Email
 
-    def price_alert_email do
+    def price_alert_setup_email(user_email, alert_params) do
         new_email(
             from: "henryzhou95@gmail.com",
-            to: "henryzhou95@gmail.com",
-            subject: "Testing email",
-            text_body: "1 2 3 ",
-            html_body: "<p>poo</p>"
+            to: user_email,
+            subject: "Your Cryptotracker Alert has been set",
+            text_body: "Your Cryptotracker Alert for #{alert_params["symbol"]} at $#{alert_params["price"]} has been successfully set.",
         )
     end
 end

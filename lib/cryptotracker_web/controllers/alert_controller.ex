@@ -1,6 +1,7 @@
 defmodule CryptotrackerWeb.AlertController do
   use CryptotrackerWeb, :controller
 
+  alias Cryptotracker.{Mailer, Email}
   alias Cryptotracker.Notification
   alias Cryptotracker.Notification.Alert
 
@@ -19,6 +20,7 @@ defmodule CryptotrackerWeb.AlertController do
     #changeset = Alert.changeset(%Alert{user_id = current_user.id}, alert_params)
     case Notification.create_alert(alert_params) do
       {:ok, alert} ->
+        Email.price_alert_setup_email(conn.assigns.current_user.email, alert_params) |> Mailer.deliver_later()
         conn
         |> put_flash(:info, "Alert created successfully.")
         |> redirect(to: alert_path(conn, :show, alert))
