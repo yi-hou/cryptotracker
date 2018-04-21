@@ -46,7 +46,4 @@ defmodule CryptotrackerWeb.PageController do
     render conn, "alerts.html", alerts: alerts, changeset: changeset
   end
 
-  defp send_alert_email do
-    Email.price_alert_email() |> Mailer.deliver_now()
-  end
 end

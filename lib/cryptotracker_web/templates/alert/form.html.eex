@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <%= label f, :symbol, class: "control-label" %>
-    <%= text_input f, :symbol, class: "form-control" %>
+    <%= select f, :symbol, ["BTC", "BCH", "ETH", "LTC"], class: "form-control" %>
     <%= error_tag f, :symbol %>
   </div>
 
