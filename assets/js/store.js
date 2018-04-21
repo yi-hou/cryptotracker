@@ -1,14 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 
-
-
-
 let params = {
     checkedValues: [],
     priceData: [],
   };
   
-
 function prices(state = params, action) {
     const state2 = Object.assign([], state);
     switch (action.type) {
@@ -20,7 +16,6 @@ function prices(state = params, action) {
         
 }
 
-
 function root_reducer(state0, action) {
     console.log("reducer", action);
     // {tasks, users, form} is ES6 shorthand for
@@ -28,8 +23,7 @@ function root_reducer(state0, action) {
     let reducer = combineReducers({prices});
     let state1 = reducer(state0, action);
     console.log("state1", state1);
-    
   };
-  
-  let store = createStore(root_reducer);
-  export default store;
+
+let store = createStore(root_reducer);
+export default store;

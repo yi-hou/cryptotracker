@@ -5,13 +5,10 @@ defmodule CryptotrackerWeb.RoomChannel do
       {:ok, socket}
     end
 
-    def handle_in("fetch_prices_USD", payload, socket) do
-        %{"coinnames" => coinnames, "state" => state} = payload
-        
-        
+    def handle_in("fetch_prices", payload, socket) do
+        %{"coinnames" => coinnames, "currency" => currency, "state" => state} = payload
         IO.inspect(coinnames)
-       
-        data = CryptotrackerWeb.PageController.fetchpricefromAPIUSD(coinnames)
+        data = CryptotrackerWeb.PageController.fetchPrice(coinnames, currency)
         IO.puts("data fetched from API")
         {:reply, {:ok, data}, socket}
     end

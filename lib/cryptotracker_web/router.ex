@@ -28,6 +28,7 @@ defmodule CryptotrackerWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/login", PageController, :index
     post "/fetchAPI", PageController, :fetchAPI
     get "/home", PageController, :home
     get "/selectcrypto", PageController, :select
