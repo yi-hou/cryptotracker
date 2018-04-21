@@ -1,14 +1,4 @@
-<nav class="navbar navbar-default " id = "navigation-bar">
-  <div class = "container-fluid">
-    <ul class="nav navbar-nav">
-      <li id="navigation-list-item">
-      New User
-      </li>
-    </ul>
-  </div>
-</nav>
-
 <div id="register-form">
 <%= render "form.html", Map.put(assigns, :action, user_path(@conn, :create)) %>
-<span><%= link "Back", to: user_path(@conn, :index) %></span>
+<span id="back"><%= link "Back", to: user_path(@conn, :index) %></span>
 </div>
