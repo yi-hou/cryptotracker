@@ -11,23 +11,22 @@ class Demo extends React.Component {
     constructor(props) {
         super(props);
         this.channel = props.channel
-
-        this.coinSymbols = ["BTC","ETH","XRP","BCH","EOS","LTC","ADA","XLM","NEO","XMR","DASH","TRX","XEM","USDT","VEN","ETC","QTUM","OMG","BNB","ICX","LSK","BTG","PPT","XVG"],
-        this.coinNames = ["Bitcoin","Ethereum","Ripple","Bitcoin Cash","EOS","Litecoin","Cardano","Stellar","NEO","Monero","Dash","TRON","NEM","Tether","VeChain","Ethereum Classic","Qtum","OmiseGO","Binance Coin","ICON","Lisk","Bitcoin Gold","Populous","Verge","Zcash"],
-        this.state = {
-            coinSymbols: this.coinSymbols,
-            coinNames: this.coinNames,
-            coinPRICEPREV: new Array(this.coinSymbols.length).fill("Fetching Data..."),
-            coinPRICE: new Array(this.coinSymbols.length).fill("Fetching Data..."),
-            coinSUPPLY: new Array(this.coinSymbols.length).fill("Fetching Data..."),
-            coinTOTALVOLUME24H: new Array(this.coinSymbols.length).fill("Fetching Data..."),
-            coinMKTCAP: new Array(this.coinSymbols.length).fill("Fetching Data..."),
-            coinHIGH24HOUR: new Array(this.coinSymbols.length).fill("Fetching Data..."),
-            coinLOW24HOUR: new Array(this.coinSymbols.length).fill("Fetching Data..."),
-            coinToggle: new Array(this.coinSymbols.length).fill(true),
-            selectedExchange: "USD",
-            timerId: 0
-        };
+        this.coinSymbols = ["BTC", "ETH", "XRP", "BCH", "EOS", "LTC", "ADA", "XLM", "NEO", "XMR", "DASH", "TRX", "XEM", "USDT", "VEN", "ETC", "QTUM", "BNB", "ICX", "LSK", "BTG", "PPT", "XVG"],
+            this.coinNames = ["Bitcoin", "Ethereum", "Ripple", "Bitcoin Cash", "EOS", "Litecoin", "Cardano", "Stellar", "NEO", "Monero", "Dash", "TRON", "NEM", "Tether", "VeChain", "Ethereum Classic", "Qtum", "Binance Coin", "ICON", "Lisk", "Bitcoin Gold", "Populous", "Verge", "Zcash"],
+            this.state = {
+                coinSymbols: this.coinSymbols,
+                coinNames: this.coinNames,
+                coinPRICEPREV: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+                coinPRICE: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+                coinSUPPLY: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+                coinTOTALVOLUME24H: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+                coinMKTCAP: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+                coinHIGH24HOUR: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+                coinLOW24HOUR: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+                coinToggle: new Array(this.coinSymbols.length).fill(true),
+                selectedExchange: "USD",
+                timerId: 0
+            };
         this.getData(this.state.selectedExchange)
     }
 
@@ -35,75 +34,85 @@ class Demo extends React.Component {
         var currentCoinToggleState = this.state.coinToggle[coinToggleIndex];
         this.state.coinToggle[coinToggleIndex] = !currentCoinToggleState;
         this.setState({ coinToggle: this.state.coinToggle })
+        var buttonToToggle = document.getElementById("toggle-btn" + coinToggleIndex);
+        if (this.state.coinToggle[coinToggleIndex]) {
+            console.log("toggled on")
+            buttonToToggle.className = "btn";
+        } else {
+            console.log("toggled off")
+            buttonToToggle.className = "btn-toggle-off";
+        }
     }
 
     render() {
         return (
             <div className="container">
-              <div className="images">
-              <img src={'https://steemitimages.com/DQmUHN62vCWCZGFdt72jxNzeaaeuMoygfG3Ev9LusyhjA4d/growth-price-dash.jpg'} alt="bg1" className="img-responsive" id="img1" />
+                <div className="images">
+                    <img src={'https://steemitimages.com/DQmUHN62vCWCZGFdt72jxNzeaaeuMoygfG3Ev9LusyhjA4d/growth-price-dash.jpg'} alt="bg1" className="img-responsive" id="img1" />
 
-              </div>
+                </div>
                 <div className="price_container">
-                <div className="checkbox-container">
-                    <div className="card">
-                        <div className="card-header">
-                            Click to toggle view
+                    <div className="checkbox-container">
+                        <div className="card">
+                            <div className="card-header">
+                                Click to toggle view
                         </div>
-                        <div className="card-body">
-                            {this.state.coinSymbols.map((symbol, index) => {
-                                return <button
-                                    type="button"
-                                    className="btn btn-primary btn-coin-toggle"
-                                    data-toggle="button"
-                                    aria-pressed="false"
-                                    autoComplete="off"
-                                    onClick={() => this.handleToggle(index)}>
-                                    {symbol}
-                                </button>
-                            })}
-                            <select className="dropdown" name="input" label="Change Currency" defaultValue="USD">
-                                <option value="USD" onClick={() => this.currencyChanged("USD")}> USD</option>
-                                <option value="EUR" onClick={() => this.currencyChanged("EUR")}> EUR </option>
-                            </select>
+                            <div className="card-body">
+                                {this.state.coinSymbols.map((symbol, index) => {
+                                    return <button
+                                        type="button"
+                                        className="btn"
+                                        id={"toggle-btn" + index}
+                                        data-toggle="button"
+                                        aria-pressed="false"
+                                        autoComplete="off"
+                                        onClick={() => this.handleToggle(index)}>
+                                        {symbol}
+                                    </button>
+                                })}
+                            </div>
                         </div>
                     </div>
+                    <div id="divPrice">
+                        <table id="tPrice" className="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Symbol</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price
+                                    <select className="dropdown" name="input" label="Change Currency" defaultValue="USD">
+                                            <option value="USD" onClick={() => this.currencyChanged("USD")}> USD</option>
+                                            <option value="EUR" onClick={() => this.currencyChanged("EUR")}> EUR </option>
+                                        </select>
+                                    </th>
+                                    <th scope="col">Market Cap</th>
+                                    <th scope="col">Supply</th>
+                                    <th scope="col">Total 24Hour Volume</th>
+                                    <th scope="col">24Hour High</th>
+                                    <th scope="col">24Hour Low</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.coinToggle.map((toggleValue, index) => {
+                                    if (toggleValue) {
+                                        return <tr id={"coinRow" + index}>
+                                            <th scope="row">{index + 1}</th>
+                                            <td><label id="labelSymbol">{this.state.coinSymbols[index]}</label></td>
+                                            <td><label id="labelName">{this.state.coinNames[index]}</label></td>
+                                            <td><label id="labelPrice">{this.state.coinPRICE[index]}</label></td>
+                                            <td><label id="labelMktcap">{this.state.coinMKTCAP[index]}</label></td>
+                                            <td><label id="labelSupply">{this.state.coinSUPPLY[index]}</label></td>
+                                            <td><label id="labelVol">{this.state.coinTOTALVOLUME24H[index]}</label></td>
+                                            <td><label id="labelHigh">{this.state.coinHIGH24HOUR[index]}</label></td>
+                                            <td><label id="labelLow">{this.state.coinLOW24HOUR[index]}</label></td>
+                                        </tr>
+                                    }
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div id="divPrice">
-                    <table id="tPrice" className="table table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Symbol</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Market Cap</th>
-                                <th scope="col">Supply</th>
-                                <th scope="col">Total 24Hour Volume</th>
-                                <th scope="col">24Hour High</th>
-                                <th scope="col">24Hour Low</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.coinToggle.map((toggleValue, index) => {
-                                if (toggleValue) {
-                                    return <tr id={"coinRow" + index}>
-                                        <th scope="row">{index + 1}</th>
-                                        <td><label id="labelSymbol">{this.state.coinSymbols[index]}</label></td>
-                                        <td><label id="labelName">{this.state.coinNames[index]}</label></td>
-                                        <td><label id="labelPrice">{this.state.coinPRICE[index]}</label></td>
-                                        <td><label id="labelMktcap">{this.state.coinMKTCAP[index]}</label></td>
-                                        <td><label id="labelSupply">{this.state.coinSUPPLY[index]}</label></td>
-                                        <td><label id="labelVol">{this.state.coinTOTALVOLUME24H[index]}</label></td>
-                                        <td><label id="labelHigh">{this.state.coinHIGH24HOUR[index]}</label></td>
-                                        <td><label id="labelLow">{this.state.coinLOW24HOUR[index]}</label></td>
-                                    </tr>
-                                }
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-              </div>
             </div>
         )
     }
@@ -152,14 +161,17 @@ class Demo extends React.Component {
                     else if (key == "MKTCAP") {
                         this.state.coinMKTCAP[coinStateIndex] = coinData[key];
                         this.setState({ coinMKTCAP: this.state.coinMKTCAP });
-                    }   
+                    }
                 }
-                if(this.state.coinPRICE[coinStateIndex] > this.state.coinPRICEPREV[coinStateIndex]) {
-                    var rowToFlash = document.getElementById("coinRow"+coinStateIndex);
-                    rowToFlash.className = "flashGreen";
-                } else if(this.state.coinPRICE[coinStateIndex] < this.state.coinPRICEPREV[coinStateIndex]) {
-                    var rowToFlash = document.getElementById("coinRow"+coinStateIndex);
-                    rowToFlash.className = "flashRed";
+                if (this.state.coinToggle[coinStateIndex]) {
+                    var rowToFlash = document.getElementById("coinRow" + coinStateIndex);
+                    if (this.state.coinPRICEPREV == "Fetching Data...") {
+                        rowToFlash.className = "flashNeutral";
+                    } else if (this.state.coinPRICE[coinStateIndex] > this.state.coinPRICEPREV[coinStateIndex]) {
+                        rowToFlash.className = "flashGreen";
+                    } else if (this.state.coinPRICE[coinStateIndex] < this.state.coinPRICEPREV[coinStateIndex]) {
+                        rowToFlash.className = "flashRed";
+                    }
                 }
             }
 
