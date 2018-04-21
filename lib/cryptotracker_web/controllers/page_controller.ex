@@ -32,52 +32,13 @@ defmodule CryptotrackerWeb.PageController do
   
   end
   
-  def fetchpricefromAPIUSD(coinnames) do
-    string = ""
-    IO.puts("coins")
+  def fetchPrice(coinnames, currency) do
     string = Enum.join(coinnames, ",")
-    IO.inspect(string)
- 
-      resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=#{string}&tsyms=USD&e=Coinbase&extraParams=your_app_name")
+      resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=#{string}&tsyms=#{currency}&e=Coinbase&extraParams=your_app_name")
       data = Poison.decode!(resp.body)
       data = data["DISPLAY"]
       IO.inspect(data)
-    end 
-
-    def fetchpricefromAPIEUR(coinnames) do
-      string = ""
-      IO.puts("coins")
-      string = Enum.join(coinnames, ",")
-      IO.inspect(string)
-   
-        resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=#{string}&tsyms=EUR&e=Coinbase&extraParams=your_app_name")
-        data = Poison.decode!(resp.body)
-        data = data["DISPLAY"]
-        IO.inspect(data)
-      end 
-
-      def fetchpricefromAPIBTC(coinnames) do
-        string = ""
-        IO.puts("coins")
-        string = Enum.join(coinnames, ",")
-        IO.inspect(string)
-     
-          resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=#{string}&tsyms=BTC&e=Coinbase&extraParams=your_app_name")
-          data = Poison.decode!(resp.body)
-          data = data["DISPLAY"]
-          IO.inspect(data)
-        end 
-
-  def fetchallpriceData() do
-    resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,XRP,BCH,LTC&tsyms=USD&e=Coinbase&extraParams=your_app_name")
-    IO.inspect(resp)
-    data = Poison.decode!(resp.body)
-    IO.inspect(data)
-    IO.inspect(data["DISPLAY"]["BTC"]["USD"]["LASTVOLUME"])  
- 
- 
-    
-  end
+    end
 
   def alerts(conn, _params) do
     alerts = Cryptotracker.Notification.list_alerts()
