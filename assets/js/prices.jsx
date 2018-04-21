@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
+import Select from 'react-select';
 
 export default function run_demo(root, channel) {
    ReactDOM.render(<Demo channel={channel} />, root);
