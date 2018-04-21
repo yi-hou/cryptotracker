@@ -11,17 +11,20 @@ class Demo extends React.Component {
     constructor(props) {
         super(props);
         this.channel = props.channel
+
+        this.coinSymbols = ["BTC","ETH","XRP","BCH","EOS","LTC","ADA","XLM","NEO","XMR","DASH","TRX","XEM","USDT","VEN","ETC","QTUM","OMG","BNB","ICX","LSK","BTG","PPT","XVG"],
+        this.coinNames = ["Bitcoin","Ethereum","Ripple","Bitcoin Cash","EOS","Litecoin","Cardano","Stellar","NEO","Monero","Dash","TRON","NEM","Tether","VeChain","Ethereum Classic","Qtum","OmiseGO","Binance Coin","ICON","Lisk","Bitcoin Gold","Populous","Verge","Zcash"],
         this.state = {
-            coinSymbols: ["BTC", "ETH", "LTC", "BCH"],
-            coinName: ["Bitcoin", "Ethereum", "Litecoin", "Bitcoin Cash"],
-            coinPRICEPREV: ["Fetching Data...", "Fetching Data...", "Fetching Data...", "Fetching Data..."],
-            coinPRICE: ["Fetching Data...", "Fetching Data...", "Fetching Data...", "Fetching Data..."],
-            coinSUPPLY: ["Fetching Data...", "Fetching Data...", "Fetching Data...", "Fetching Data..."],
-            coinTOTALVOLUME24H: ["Fetching Data...", "Fetching Data...", "Fetching Data...", "Fetching Data..."],
-            coinMKTCAP: ["Fetching Data...", "Fetching Data...", "Fetching Data...", "Fetching Data..."],
-            coinHIGH24HOUR: ["Fetching Data...", "Fetching Data...", "Fetching Data...", "Fetching Data..."],
-            coinLOW24HOUR: ["Fetching Data...", "Fetching Data...", "Fetching Data...", "Fetching Data..."],
-            coinToggle: [true, true, true, true],
+            coinSymbols: this.coinSymbols,
+            coinNames: this.coinNames,
+            coinPRICEPREV: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+            coinPRICE: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+            coinSUPPLY: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+            coinTOTALVOLUME24H: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+            coinMKTCAP: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+            coinHIGH24HOUR: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+            coinLOW24HOUR: new Array(this.coinSymbols.length).fill("Fetching Data..."),
+            coinToggle: new Array(this.coinSymbols.length).fill(true),
             selectedExchange: "USD",
             timerId: 0
         };
@@ -35,7 +38,6 @@ class Demo extends React.Component {
     }
 
     render() {
-        this.changeColor();
         return (
             <div className="container">
               <div className="images">
@@ -85,12 +87,11 @@ class Demo extends React.Component {
                         <tbody>
                             {this.state.coinToggle.map((toggleValue, index) => {
                                 if (toggleValue) {
-                                    return <tr>
+                                    return <tr id={"coinRow" + index}>
                                         <th scope="row">{index + 1}</th>
-                                        <td>
-                                            <label id="labelSymbol">{this.state.coinSymbols[index]}</label></td>
-                                        <td><label id="labelName">{this.state.coinName[index]}</label></td>
-                                        <td><label onLoad={this.changeColor()} id="labelPrice">{this.state.coinPRICE[index]}</label></td>
+                                        <td><label id="labelSymbol">{this.state.coinSymbols[index]}</label></td>
+                                        <td><label id="labelName">{this.state.coinNames[index]}</label></td>
+                                        <td><label id="labelPrice">{this.state.coinPRICE[index]}</label></td>
                                         <td><label id="labelMktcap">{this.state.coinMKTCAP[index]}</label></td>
                                         <td><label id="labelSupply">{this.state.coinSUPPLY[index]}</label></td>
                                         <td><label id="labelVol">{this.state.coinTOTALVOLUME24H[index]}</label></td>
@@ -118,30 +119,6 @@ class Demo extends React.Component {
     currencyChanged(currency) {
         clearInterval(this.state.timerId);
         this.setState({ selectedExchange: currency })
-    }
-
-    changeColor() {
-        var cp = [];
-        cp = this.state.coinPRICE
-        var cpp = [];
-        cpp = this.state.coinPRICEPREV
-        var rows = document.getElementsByTagName("tr")
-        for (var i = 1; i < rows.length; i++) {
-            var row = rows[i];
-            var cells = row.getElementsByTagName('td');
-            var cell = cells[2]
-            if (cp[i - 1] > cpp[i - 1] || cpp[i - 1] == 0) {
-                cell.style.color = "green"
-                row.style.backgroundColor = "green"
-                row.style.backgroundColor = "black"
-
-            }
-            else if (cp[i - 1] < cpp[i - 1]) {
-                cell.style.color = "red"
-                row.style.backgroundColor = "red"
-                row.style.backgroundColor = "black"
-            }
-        }
     }
 
     gotView(pricedata) {
@@ -175,9 +152,17 @@ class Demo extends React.Component {
                     else if (key == "MKTCAP") {
                         this.state.coinMKTCAP[coinStateIndex] = coinData[key];
                         this.setState({ coinMKTCAP: this.state.coinMKTCAP });
-                    }
+                    }   
+                }
+                if(this.state.coinPRICE[coinStateIndex] > this.state.coinPRICEPREV[coinStateIndex]) {
+                    var rowToFlash = document.getElementById("coinRow"+coinStateIndex);
+                    rowToFlash.className = "flashGreen";
+                } else if(this.state.coinPRICE[coinStateIndex] < this.state.coinPRICEPREV[coinStateIndex]) {
+                    var rowToFlash = document.getElementById("coinRow"+coinStateIndex);
+                    rowToFlash.className = "flashRed";
                 }
             }
+
         }
     }
 }

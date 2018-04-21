@@ -49,6 +49,39 @@ li a:hover {
   color: rgb(126,126,126);
 }
 
+.flashNeutral {
+  background: black;
+  -webkit-animation: fadeNeutralInOut .75s linear forwards;
+  animation: fadeNeutralInOut .75s linear forwards;
+}
+
+@-webkit-keyframes fadeNeutralInOut {
+  0%,100% { background-color: black }
+  50% { background-color: #D2D7D3; }
+}
+
+.flashGreen {
+  background: black;
+  -webkit-animation: fadeGreenInOut .75s linear forwards;
+  animation: fadeGreenInOut .75s linear forwards;
+}
+
+@-webkit-keyframes fadeGreenInOut {
+  0%,100% { background-color: black }
+  50% { background-color: #87D37C; }
+}
+
+.flashRed {
+  background: black;
+  -webkit-animation: fadeRedInOut .75s linear forwards;
+  animation: fadeRedInOut .75s linear forwards;
+}
+
+@-webkit-keyframes fadeRedInOut {
+  0%,100% { background-color: black }
+  50% { background-color: #D24D57; }
+}
+
 #navbar{
   background-color: black;
   color: white;

@@ -34,7 +34,7 @@ defmodule CryptotrackerWeb.PageController do
   
   def fetchPrice(coinnames, currency) do
     string = Enum.join(coinnames, ",")
-      resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=#{string}&tsyms=#{currency}&e=Coinbase&extraParams=your_app_name")
+      resp = HTTPoison.get!("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=#{string}&tsyms=#{currency}&e=CCCAGG")
       data = Poison.decode!(resp.body)
       data = data["DISPLAY"]
       IO.inspect(data)
