@@ -12,4 +12,13 @@ defmodule Cryptotracker.Email do
             text_body: "Your Cryptotracker Alert for #{alert_params["symbol"]} at $#{alert_params["price"]} has been successfully set.",
         )
     end
+
+    def price_alert__email(user_email, alert_params) do
+        new_email(
+            from: "henryzhou95@gmail.com",
+            to: user_email,
+            subject: "Cryptotracker Price Alert!",
+            text_body: "This is an alert for #{alert_params["symbol"]} at $#{alert_params["price"]}",
+        )
+    end
 end
