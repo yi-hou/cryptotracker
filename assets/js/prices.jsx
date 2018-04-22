@@ -36,14 +36,72 @@ class Demo extends React.Component {
         this.setState({ coinToggle: this.state.coinToggle })
         var buttonToToggle = document.getElementById("toggle-btn" + coinToggleIndex);
         if (this.state.coinToggle[coinToggleIndex]) {
-            console.log("toggled on")
             buttonToToggle.className = "btn";
         } else {
-            console.log("toggled off")
             buttonToToggle.className = "btn-toggle-off";
         }
     }
 
+    getData() {
+        var timer = setInterval(() => {
+            this.channel.push("fetch_prices", { coinnames: this.state.coinSymbols, currency: this.state.selectedExchange, state: this.state })
+                .receive("ok", this.gotView.bind(this))
+        }, 2000)
+        this.setState({ timerId: timer })
+    }
+
+    currencyChanged(currency) {
+        clearInterval(this.state.timerId);
+        this.setState({ selectedExchange: currency })
+    }
+
+    gotView(pricedata) {
+        for (var symbols in pricedata) {
+            var coinStateIndex = this.state.coinSymbols.indexOf(symbols)
+            for (var currency in pricedata[symbols]) {
+                var coinData = (pricedata[symbols][currency])
+                for (var key in coinData) {
+                    if (key == "PRICE") {
+                        this.state.coinPRICEPREV[coinStateIndex] = this.state.coinPRICE[coinStateIndex];
+                        this.setState({ coinPRICEPREV: this.state.coinPRICEPREV });
+                        this.state.coinPRICE[coinStateIndex] = coinData[key];
+                        this.setState({ coinPRICE: this.state.coinPRICE });
+                    }
+                    else if (key == "SUPPLY") {
+                        this.state.coinSUPPLY[coinStateIndex] = coinData[key];
+                        this.setState({ coinSUPPLY: this.state.coinSUPPLY });
+                    }
+                    else if (key == "TOTALVOLUME24H") {
+                        this.state.coinTOTALVOLUME24H[coinStateIndex] = coinData[key];
+                        this.setState({ coinTOTALVOLUME24H: this.state.coinTOTALVOLUME24H });
+                    }
+                    else if (key == "HIGH24HOUR") {
+                        this.state.coinHIGH24HOUR[coinStateIndex] = coinData[key];
+                        this.setState({ coinHIGH24HOUR: this.state.coinHIGH24HOUR });
+                    }
+                    else if (key == "LOW24HOUR") {
+                        this.state.coinLOW24HOUR[coinStateIndex] = coinData[key];
+                        this.setState({ coinLOW24HOUR: this.state.coinLOW24HOUR });
+                    }
+                    else if (key == "MKTCAP") {
+                        this.state.coinMKTCAP[coinStateIndex] = coinData[key];
+                        this.setState({ coinMKTCAP: this.state.coinMKTCAP });
+                    }
+                }
+                if (this.state.coinToggle[coinStateIndex]) {
+                    var rowToFlash = document.getElementById("coinRow" + coinStateIndex);
+                    if (this.state.coinPRICEPREV == "Fetching Data...") {
+                        rowToFlash.className = "flashNeutral";
+                    } else if (this.state.coinPRICE[coinStateIndex] > this.state.coinPRICEPREV[coinStateIndex]) {
+                        rowToFlash.className = "flashGreen";
+                    } else if (this.state.coinPRICE[coinStateIndex] < this.state.coinPRICEPREV[coinStateIndex]) {
+                        rowToFlash.className = "flashRed";
+                    }
+                }
+            }
+        }
+    }
+    
     render() {
         return (
             <div className="container">
@@ -115,66 +173,5 @@ class Demo extends React.Component {
                 </div>
             </div>
         )
-    }
-
-    getData() {
-        var timer = setInterval(() => {
-            this.channel.push("fetch_prices", { coinnames: this.state.coinSymbols, currency: this.state.selectedExchange, state: this.state })
-                .receive("ok", this.gotView.bind(this))
-        }, 2000)
-        this.setState({ timerId: timer })
-    }
-
-    currencyChanged(currency) {
-        clearInterval(this.state.timerId);
-        this.setState({ selectedExchange: currency })
-    }
-
-    gotView(pricedata) {
-        for (var symbols in pricedata) {
-            var coinStateIndex = this.state.coinSymbols.indexOf(symbols)
-            for (var currency in pricedata[symbols]) {
-                var coinData = (pricedata[symbols][currency])
-                for (var key in coinData) {
-                    if (key == "PRICE") {
-                        this.state.coinPRICEPREV[coinStateIndex] = this.state.coinPRICE[coinStateIndex];
-                        this.setState({ coinPRICEPREV: this.state.coinPRICEPREV });
-                        this.state.coinPRICE[coinStateIndex] = coinData[key];
-                        this.setState({ coinPRICE: this.state.coinPRICE });
-                    }
-                    else if (key == "SUPPLY") {
-                        this.state.coinSUPPLY[coinStateIndex] = coinData[key];
-                        this.setState({ coinSUPPLY: this.state.coinSUPPLY });
-                    }
-                    else if (key == "TOTALVOLUME24H") {
-                        this.state.coinTOTALVOLUME24H[coinStateIndex] = coinData[key];
-                        this.setState({ coinTOTALVOLUME24H: this.state.coinTOTALVOLUME24H });
-                    }
-                    else if (key == "HIGH24HOUR") {
-                        this.state.coinHIGH24HOUR[coinStateIndex] = coinData[key];
-                        this.setState({ coinHIGH24HOUR: this.state.coinHIGH24HOUR });
-                    }
-                    else if (key == "LOW24HOUR") {
-                        this.state.coinLOW24HOUR[coinStateIndex] = coinData[key];
-                        this.setState({ coinLOW24HOUR: this.state.coinLOW24HOUR });
-                    }
-                    else if (key == "MKTCAP") {
-                        this.state.coinMKTCAP[coinStateIndex] = coinData[key];
-                        this.setState({ coinMKTCAP: this.state.coinMKTCAP });
-                    }
-                }
-                if (this.state.coinToggle[coinStateIndex]) {
-                    var rowToFlash = document.getElementById("coinRow" + coinStateIndex);
-                    if (this.state.coinPRICEPREV == "Fetching Data...") {
-                        rowToFlash.className = "flashNeutral";
-                    } else if (this.state.coinPRICE[coinStateIndex] > this.state.coinPRICEPREV[coinStateIndex]) {
-                        rowToFlash.className = "flashGreen";
-                    } else if (this.state.coinPRICE[coinStateIndex] < this.state.coinPRICEPREV[coinStateIndex]) {
-                        rowToFlash.className = "flashRed";
-                    }
-                }
-            }
-
-        }
     }
 }
