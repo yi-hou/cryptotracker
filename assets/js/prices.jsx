@@ -101,7 +101,7 @@ class Demo extends React.Component {
             }
         }
     }
-    
+
     render() {
         return (
             <div className="container">
@@ -131,7 +131,7 @@ class Demo extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div id="divPrice">
+                    <div className="table-responsive-lg" id="divPrice">
                         <table id="tPrice" className="table table-dark">
                             <thead>
                                 <tr>
