@@ -12,7 +12,8 @@ config :cryptotracker,
 # Configures the endpoint
 config :cryptotracker, CryptotrackerWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "OGhaezZMQk77IKAAr7FNEiUxV3UluAvOZwyML4saptRDHGxlZmEjd3VF/6oNOgfB",
+  #secret_key_base: "OGhaezZMQk77IKAAr7FNEiUxV3UluAvOZwyML4saptRDHGxlZmEjd3VF/6oNOgfB",
+  secret_key_base: "1d2f8f2b8104989c9409bf8825e0622f378a26f5dfe1b36fac62343af2a6fd6e",
   render_errors: [view: CryptotrackerWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Cryptotracker.PubSub,
            adapter: Phoenix.PubSub.PG2]

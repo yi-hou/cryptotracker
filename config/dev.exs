@@ -55,7 +55,7 @@ config :phoenix, :stacktrace_depth, 20
 config :cryptotracker, Cryptotracker.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "tracker",
-  password: "edc666.",
+  password: "houyi0309.",
   database: "cryptotracker_dev",
   hostname: "localhost",
   pool_size: 10
